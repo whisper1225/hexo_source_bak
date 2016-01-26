@@ -55,15 +55,20 @@ tags:
 
 ## **四、运行hexo**
 ### **1、步骤**
-init-->npm install 安装相关插件--》 hexo s -g 生成静态文件并且启动本地server--》用浏览器查看-》配置yml文件，指定git相关参数
+**init-->npm install 安装相关插件**--》 hexo s -g 生成静态文件并且启动本地server--》用浏览器查看-》配置yml文件，指定git相关参数
 可以在先hexo g 然后 hexo s -p 你的端口号指定端口，现在本地看看效果，然后推送到github上(至于能不能直接hexo s -p 4000 -g 这种形式就没试了)。
+> 前面两步是新建博客目录（就是再开一个博客文件夹，不是指写一篇新博客）的步骤。
 ### **2、坑**
 1. hexo s -g server失败：本来npm install 安装的插件够用了。但是好像是由于版本的原因，比如什么server和deplyoer之类的插件需要单独再次安装（之前由于各种错误，为了保险将nodejs的版本降得较低）。
 2. 服务器成功启动了，成功启动的样子各个博客都有就不贴图了。但是浏览器localhost:4000无法访问。有人说要用127.0.0.1，有人说过十分钟就好了，当然也不排除这种可能,推酷上就分析了这个原因<http://www.tuicool.com/articles/uE7FJba>。大部分情况都是端口占用，用netstar查看，是被就127.0.0.1和0.0.0.1使用，这个不太合理。我关机再起，一启动就被0.0.0.0占用。没道理啊，我还没开hexo服务器啊。
 算了重启的时候指定端口，ok。
 ![](http://7xqbxa.com1.z0.glb.clouddn.com/github_recordHexo_hexopushSuccPage1.png)
 
-3.
+3. hexo部署到github
+从原理上来说，hexo使用hexo——deploy_git进行发布管理。但是其实这个deploy_git本质上还是使用原生git来管理的。
+deploy_git将public文件夹的文件一如.deploy_git文件夹，然后调用原生git上传到git服务器。
+这一点，我们从博客主目录（就是hexo init 那个文件夹）文件夹目录结构也可以看出来。
+
 ```xml
     deploy:
   type: git
